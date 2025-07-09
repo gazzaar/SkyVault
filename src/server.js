@@ -5,8 +5,11 @@ import dotenv from 'dotenv';
 import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
+import './config/passport.js';
 import { PrismaClient } from './generated/prisma/client.js';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
+import indexRouter from './routes/IndexRouter.js';
+import signUpRouter from './routes/SignUpRouter.js';
 dotenv.config();
 
 const app = express();
@@ -14,6 +17,11 @@ const prisma = new PrismaClient();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(bodyParser.urlencoded({ extended: false }));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/css', express.static(path.join(__dirname, 'views/css')));
 
 // Init Prisma Store
 const prismaStore = new PrismaSessionStore(prisma, {
@@ -34,10 +42,10 @@ app.use(
   }),
 );
 
-app.get('/', (req, res) => {
-  res.send('Welcome back bro!');
-  res.end();
-});
+app.use(passport.session());
+
+app.use('/', indexRouter);
+app.use('/sign-up', signUpRouter);
 
 const PORT = process.env.PORT || 3000;
 
