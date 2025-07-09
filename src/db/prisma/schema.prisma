@@ -45,3 +45,10 @@ model File {
     link String?
     @@unique([folderID, name])
   }
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   
+  expiresAt   DateTime
+}
