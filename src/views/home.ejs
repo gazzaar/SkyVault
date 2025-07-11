@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyVault - Home</title>
+    <link rel="stylesheet" href="/css/home.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container">
+        <div class="logo">
+          <h1>SkyVault</h1>
+        </div>
+        <div class="user-section">
+          <span class="welcome-text"
+            >Welcome, <%= locals.currentUser.username %></span
+          >
+          <a href="/logout" class="btn btn-logout">Logout</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="content-header">
+        <h2>My Files</h2>
+        <button class="btn btn-add-folder">
+          <span class="btn-icon">📁</span>
+          Add Folder
+        </button>
+      </div>
+
+      <div class="files-container">
+        <div class="empty-state">
+          <div class="empty-icon">📂</div>
+          <h3>No folders yet</h3>
+          <p>Create your first folder to get started</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
