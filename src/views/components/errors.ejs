@@ -1,0 +1,7 @@
+<% if (locals.errors) {%>
+<ul>
+  <% errors.forEach(function(error) { %>
+  <li><span class="error-icon">⚠️</span><%= error.msg %></li>
+  <% }); %>
+</ul>
+<% } %>
