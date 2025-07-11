@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #282828;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background: #3c3836;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #504945;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-header h1 {
+  color: #ebdbb2;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.login-header p {
+  color: #d5c4a1;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ebdbb2;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #504945;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: #282828;
+  color: #ebdbb2;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #83a598;
+}
+
+.form-group input::placeholder {
+  color: #928374;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #b8bb26;
+  color: #282828;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.login-btn:hover {
+  background: #98971a;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(184, 187, 38, 0.3);
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #504945;
+}
+
+.login-footer p {
+  color: #d5c4a1;
+  font-size: 0.9rem;
+}
+
+.login-footer a {
+  color: #83a598;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-footer a:hover {
+  color: #b8bb26;
+  text-decoration: underline;
+}
+
+/* Error styling for the reusable component */
+ul {
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+ul li {
+  background: #3c3836;
+  color: #fb4934;
+  padding: 0.75rem;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  border: 1px solid #cc241d;
+  display: flex;
+  align-items: center;
+}
+
+.error-icon {
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+}
