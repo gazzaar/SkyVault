@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #282828;
+  min-height: 100vh;
+}
+
+/* Header Styles */
+.header {
+  background: rgba(40, 40, 40, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #3c3836;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo h1 {
+  color: #ebdbb2;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.btn-login {
+  background: transparent;
+  color: #83a598;
+  border-color: #83a598;
+}
+
+.btn-login:hover {
+  background: #83a598;
+  color: #282828;
+  transform: translateY(-2px);
+}
+
+.btn-signup {
+  background: #b8bb26;
+  color: #282828;
+}
+
+.btn-signup:hover {
+  background: #98971a;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(184, 187, 38, 0.3);
+}
+
+/* Main Content */
+.main-content {
+  padding-top: 100px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-section {
+  text-align: center;
+  color: #ebdbb2;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.hero-section h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #fbf1c7;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  line-height: 1.6;
+  color: #d5c4a1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 1rem;
+  }
+
+  .logo h1 {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+
+  .hero-section h2 {
+    font-size: 2.5rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+}
