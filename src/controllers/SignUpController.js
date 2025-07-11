@@ -1,13 +1,12 @@
 import bcrypt from 'bcryptjs';
 import { body, validationResult } from 'express-validator';
-import passport from '../config/passport.js';
 import { PrismaClient } from '../generated/prisma/client.js';
 const prisma = new PrismaClient();
 
 const alphaErr = 'must only contain letters.';
 const lengthErr = 'must be between 1 and 10 characters.';
 
-const validateSignUp = [
+export const validateSignUp = [
   body('username')
     .trim()
     .isAlpha()
@@ -25,21 +24,20 @@ export const createUser = [
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        res.render('index', {
+        res.render('sign-up', {
           errors: errors,
         });
       }
 
       const { username, password } = req.body;
       const hashedPasword = await bcrypt.hash(password, 10);
-      const user = await prisma.user.create({
+      await prisma.user.create({
         data: {
           username: username,
           password: hashedPasword,
         },
       });
-      res.send('wow, that was so cool');
-      res.end();
+      res.redirect('login');
     } catch (err) {
       console.error(err);
       throw err;
