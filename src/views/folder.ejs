@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyVault - <%= folder.name %></title>
+    <link rel="stylesheet" href="/css/folder.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container">
+        <div class="logo">
+          <h1>SkyVault</h1>
+        </div>
+        <div class="user-section">
+          <span class="welcome-text"
+            >Welcome, <%= locals.currentUser.username %></span
+          >
+          <a href="/logout" class="btn btn-logout">Logout</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <%- include('components/errors') %>
+
+      <div class="breadcrumb">
+        <a href="/" class="breadcrumb-link">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current"><%= folder.name %></span>
+      </div>
+
+      <div class="folder-header">
+        <div class="folder-title">
+          <div class="folder-icon">📁</div>
+          <h2><%= folder.name %></h2>
+        </div>
+        <div class="folder-actions">
+          <button class="btn btn-add-file" onclick="openAddFileModal()">
+            <span class="btn-icon">📄</span>
+            Add File
+          </button>
+        </div>
+      </div>
+
+      <div class="folder-info">
+        <div class="info-item">
+          <span class="info-label">Created:</span>
+          <span class="info-value"
+            ><%= new Date(folder.createdAt).toLocaleString("en-US") %></span
+          >
+        </div>
+        <div class="info-item">
+          <span class="info-label">Updated:</span>
+          <span class="info-value"
+            ><%= new Date(folder.updatedAt).toLocaleString("en-US") %></span
+          >
+        </div>
+      </div>
+
+      <div class="files-section">
+        <h3 class="section-title">Files</h3>
+        <% if (locals.files && files.length > 0) { %>
+        <div class="files-list">
+          <% files.forEach(function(file) { %>
+          <div class="file-item">
+            <div class="file-icon">📄</div>
+            <div class="file-info">
+              <h4 class="file-name"><%= file.name %></h4>
+              <div class="file-details">
+                <span class="file-size"
+                  ><%= file.size ? (file.size / 1024).toFixed(2) + ' KB' :
+                  'Unknown size' %></span
+                >
+                <span class="file-date"
+                  ><%= new Date(file.createdAt).toLocaleString("en-US") %></span
+                >
+              </div>
+            </div>
+            <div class="file-actions">
+              <button class="btn btn-download" title="Download file">
+                <span class="action-icon">⬇️</span>
+              </button>
+              <button class="btn btn-delete" title="Delete file">
+                <span class="action-icon">🗑️</span>
+              </button>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+        <% } else { %>
+        <div class="empty-state">
+          <div class="empty-icon">📄</div>
+          <h3>No files yet</h3>
+          <p>Add your first file to get started</p>
+        </div>
+        <% } %>
+      </div>
+    </main>
+
+    <!-- Add File Modal -->
+    <div id="addFileModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Upload File</h3>
+          <button class="modal-close" onclick="closeAddFileModal()">
+            &times;
+          </button>
+        </div>
+        <form
+          action="/folder/<%= folder.id %>/upload"
+          method="POST"
+          enctype="multipart/form-data"
+          class="modal-form"
+        >
+          <div class="form-group">
+            <label for="file">Select File</label>
+            <input type="file" id="file" name="file" required accept="*/*" />
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-cancel"
+              onclick="closeAddFileModal()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-create">Upload File</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function openAddFileModal() {
+        document.getElementById('addFileModal').style.display = 'flex';
+        document.getElementById('file').focus();
+      }
+
+      function closeAddFileModal() {
+        document.getElementById('addFileModal').style.display = 'none';
+        document.getElementById('file').value = '';
+      }
+
+      function openEditFolderModal() {
+        document.getElementById('editFolderModal').style.display = 'flex';
+        document.getElementById('editFolderName').focus();
+        document.getElementById(
+          'editFolderForm'
+        ).action = `/folder/<%= folder.id %>?_method=PUT`;
+      }
+
+      function closeEditFolderModal() {
+        document.getElementById('editFolderModal').style.display = 'none';
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const addModal = document.getElementById('addFileModal');
+        const editModal = document.getElementById('editFolderModal');
+        if (event.target === addModal) closeAddFileModal();
+        if (event.target === editModal) closeEditFolderModal();
+      };
+
+      // Close modal with Escape key
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeAddFileModal();
+        }
+      });
+    </script>
+  </body>
+</html>
