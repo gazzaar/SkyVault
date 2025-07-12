@@ -5,6 +5,7 @@ import {
   deleteFolder,
   updateFolderName,
   getFolder,
+  uploadFile,
 } from '../controllers/FoldersController.js';
 const folderRouter = Router();
 folderRouter.use(methodOverride('_method'));
@@ -14,5 +15,6 @@ folderRouter.post('/new', createFolder);
 folderRouter.delete('/:id', deleteFolder);
 folderRouter.put('/:id', updateFolderName);
 folderRouter.get('/:id', getFolder);
+folderRouter.post('/:id/upload', uploadFile);
 
 export default folderRouter;

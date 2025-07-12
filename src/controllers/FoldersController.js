@@ -1,6 +1,32 @@
 import { body, validationResult } from 'express-validator';
 import { PrismaClient } from '../generated/prisma/client.js';
+import multer from 'multer';
 const prisma = new PrismaClient();
+
+const upload = multer({
+  dest: 'uploads/', // Destination folder for uploaded files
+  limits: { fileSize: 5 * 1024 * 1024 }, // Max file size: 5MB
+  fileFilter: (req, file, cb) => {
+    // Optional: Basic file type filtering in multer
+    const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+    if (!allowedTypes.includes(file.mimetype)) {
+      return cb(
+        new Error('Invalid file type. Only JPEG, PNG, and PDF are allowed.'),
+      );
+    }
+    cb(null, true);
+  },
+});
+
+// Middleware to handle multer errors
+const handleMulterError = (err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    return res.status(400).json({ errors: [{ msg: err.message }] });
+  } else if (err) {
+    return res.status(400).json({ errors: [{ msg: err.message }] });
+  }
+  next();
+};
 
 const validateFolderName = [
   body('name').trim().notEmpty().withMessage('Folder name should has a name'),
@@ -161,3 +187,11 @@ export const getFolder = async (req, res) => {
     throw err;
   }
 };
+
+export const uploadFile = [
+  upload.single('file'),
+  handleMulterError,
+  async (req, res, next) => {
+    res.end();
+  },
+];
