@@ -36,7 +36,7 @@
         <% if (locals.folders && folders.length > 0) { %>
         <div class="folders-grid">
           <% folders.forEach(function(folder) { %>
-          <div class="folder-card">
+          <div class="folder-card" data-folder-id="<%= folder.id %>" >
             <div class="folder-icon">📁</div>
             <div class="folder-info">
               <h3 class="folder-name"><%= folder.name %></h3>
@@ -210,6 +210,27 @@ onclick="openEditFolderModal(<%= folder.id %>, '<%= folder.name.replace(/'/g, "\
           closeEditFolderModal();
         }
       });
+
+      // Add event listeners for folder cards
+      document.addEventListener('DOMContentLoaded', function() {
+        const folderCards = document.querySelectorAll('.folder-card');
+        folderCards.forEach(function(card) {
+          card.addEventListener('click', function(e) {
+            // Don't navigate if clicking on action buttons
+            if (e.target.closest('.folder-actions')) {
+              return;
+            }
+            
+            const folderId = this.getAttribute('data-folder-id');
+            navigateToFolder(folderId);
+          });
+        });
+      });
+
+      function navigateToFolder(id ) {
+        // Navigate to the folder page
+        window.location.href = `/folder/${id}/`;
+      }
     </script>
   </body>
 </html>
