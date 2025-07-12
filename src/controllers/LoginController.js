@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator';
 import passport from '../config/passport.js';
 import { validateSignUp as validateLogin } from './SignUpController.js';
+import { getFolders } from './FoldersController.js';
 
 export const getUser = [
   validateLogin,
