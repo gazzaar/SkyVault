@@ -12,6 +12,7 @@ import indexRouter from './routes/IndexRouter.js';
 import signUpRouter from './routes/SignUpRouter.js';
 import loginRouter from './routes/LoginRouter.js';
 import homeRouter from './routes/Home.js';
+import folderRouter from './routes/FoldersRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -55,6 +56,7 @@ app.use('/', indexRouter);
 app.use('/sign-up', signUpRouter);
 app.use('/login', loginRouter);
 app.use('/home', homeRouter);
+app.use('/folder', folderRouter);
 
 app.get('/logout', (req, res, next) => {
   req.logout((err) => {
