@@ -140,3 +140,24 @@ export const updateFolderName = [
     }
   },
 ];
+
+export const getFolder = async (req, res) => {
+  try {
+    if (!req.isAuthenticated()) {
+      return res.redirect('/login');
+    }
+    const folder = await prisma.folder.findUnique({
+      where: {
+        id: +req.params.id,
+        userID: +req.user.id,
+      },
+    });
+
+    res.render('folder', {
+      currentUser: req.user,
+      folder: folder,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
