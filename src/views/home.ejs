@@ -22,21 +22,194 @@
     </header>
 
     <main class="main-content">
+      <%- include('components/errors') %>
+
       <div class="content-header">
         <h2>My Files</h2>
-        <button class="btn btn-add-folder">
+        <button class="btn btn-add-folder" onclick="openAddFolderModal()">
           <span class="btn-icon">📁</span>
           Add Folder
         </button>
       </div>
 
       <div class="files-container">
+        <% if (locals.folders && folders.length > 0) { %>
+        <div class="folders-grid">
+          <% folders.forEach(function(folder) { %>
+          <div class="folder-card">
+            <div class="folder-icon">📁</div>
+            <div class="folder-info">
+              <h3 class="folder-name"><%= folder.name %></h3>
+              <div class="folder-dates">
+                <span class="date-label">Created:</span>
+                <span class="date-value"
+                  ><%= new Date(folder.createdAt).toLocaleString("en-US")
+                  %></span
+                >
+              </div>
+              <div class="folder-dates">
+                <span class="date-label">Updated:</span>
+                <span class="date-value"
+                  ><%= new Date(folder.updatedAt).toLocaleString("en-US")
+                  %></span
+                >
+              </div>
+            </div>
+            <div class="folder-actions">
+              <button
+                class="btn btn-edit"
+                title="Edit folder"
+onclick="openEditFolderModal(<%= folder.id %>, '<%= folder.name.replace(/'/g, "\\'").replace(/"/g, '\\"') %>')"
+              >
+                <span class="action-icon">✏️</span>
+              </button>
+              <form
+                action="/folder/<%= folder.id %>?_method=DELETE"
+                method="POST"
+                style="display: inline"
+              >
+                <button class="btn btn-delete" title="Delete folder">
+                  <span class="action-icon">🗑️</span>
+                </button>
+              </form>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+        <% } else { %>
         <div class="empty-state">
           <div class="empty-icon">📂</div>
           <h3>No folders yet</h3>
           <p>Create your first folder to get started</p>
         </div>
+        <% } %>
       </div>
     </main>
+
+    <!-- Add Folder Modal -->
+    <div id="addFolderModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Create New Folder</h3>
+          <button class="modal-close" onclick="closeAddFolderModal()">
+            &times;
+          </button>
+        </div>
+        <form action="/folder/new" method="POST" class="modal-form">
+          <div class="form-group">
+            <label for="folderName">Folder Name</label>
+            <input
+              type="text"
+              id="folderName"
+              name="name"
+              required
+              placeholder="Enter folder name"
+              autocomplete="off"
+            />
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-cancel"
+              onclick="closeAddFolderModal()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-create">Create Folder</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Folder Modal -->
+    <div id="editFolderModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit Folder</h3>
+          <button class="modal-close" onclick="closeEditFolderModal()">
+            &times;
+          </button>
+        </div>
+        <form id="editFolderForm" method="POST" class="modal-form">
+          <div class="form-group">
+            <label for="editFolderName">Folder Name</label>
+            <input
+              type="text"
+              id="editFolderName"
+              name="name"
+              required
+              placeholder="Enter folder name"
+              autocomplete="off"
+            />
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-cancel"
+              onclick="closeEditFolderModal()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-create">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function openAddFolderModal() {
+        document.getElementById('addFolderModal').style.display = 'flex';
+        document.getElementById('folderName').focus();
+      }
+
+      function closeAddFolderModal() {
+        document.getElementById('addFolderModal').style.display = 'none';
+        document.getElementById('folderName').value = '';
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const modal = document.getElementById('addFolderModal');
+        if (event.target === modal) {
+          closeAddFolderModal();
+        }
+      };
+
+      // Close modal with Escape key
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeAddFolderModal();
+        }
+      });
+
+      function openEditFolderModal(id, name) {
+        document.getElementById('editFolderModal').style.display = 'flex';
+        document.getElementById('editFolderName').value = name;
+        document.getElementById('editFolderName').focus();
+        // Set the form action dynamically
+        document.getElementById(
+          'editFolderForm'
+        ).action = `/folder/${id}?_method=PUT`;
+      }
+
+      function closeEditFolderModal() {
+        document.getElementById('editFolderModal').style.display = 'none';
+        document.getElementById('editFolderName').value = '';
+      }
+
+      // Optionally, add close on outside click and Escape key, similar to Add Folder modal
+      window.onclick = function (event) {
+        const addModal = document.getElementById('addFolderModal');
+        const editModal = document.getElementById('editFolderModal');
+        if (event.target === addModal) closeAddFolderModal();
+        if (event.target === editModal) closeEditFolderModal();
+      };
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeAddFolderModal();
+          closeEditFolderModal();
+        }
+      });
+    </script>
   </body>
 </html>
