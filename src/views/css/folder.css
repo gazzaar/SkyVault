@@ -408,6 +408,79 @@ body {
   color: #928374;
 }
 
+/* File Input Styling */
+.modal-form .form-group input[type='file'] {
+  position: relative;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border: 2px dashed #504945;
+  border-radius: 6px;
+  background: #282828;
+  color: #ebdbb2;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.modal-form .form-group input[type='file']:hover {
+  border-color: #83a598;
+  background: #32302f;
+}
+
+.modal-form .form-group input[type='file']:focus {
+  outline: none;
+  border-color: #83a598;
+  box-shadow: 0 0 0 3px rgba(131, 165, 152, 0.1);
+  background: #32302f;
+}
+
+.modal-form .form-group input[type='file']::file-selector-button {
+  background: #83a598;
+  color: #282828;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: all 0.2s ease;
+}
+
+.modal-form .form-group input[type='file']::file-selector-button:hover {
+  background: #689d6a;
+  transform: translateY(-1px);
+}
+
+.modal-form .form-group input[type='file']::file-selector-button:active {
+  transform: translateY(0);
+}
+
+/* Custom file input styling for better cross-browser compatibility */
+.modal-form .form-group input[type='file']::-webkit-file-upload-button {
+  background: #83a598;
+  color: #282828;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: all 0.2s ease;
+}
+
+.modal-form .form-group input[type='file']::-webkit-file-upload-button:hover {
+  background: #689d6a;
+  transform: translateY(-1px);
+}
+
+.modal-form .form-group input[type='file']::-webkit-file-upload-button:active {
+  transform: translateY(0);
+}
+
 .modal-actions {
   display: flex;
   gap: 1rem;

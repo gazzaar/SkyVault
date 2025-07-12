@@ -57,12 +57,9 @@
             <div class="file-info">
               <h4 class="file-name"><%= file.name %></h4>
               <div class="file-details">
-                <span class="file-size"
-                  ><%= file.size ? (file.size / 1024).toFixed(2) + ' KB' :
-                  'Unknown size' %></span
-                >
                 <span class="file-date"
-                  ><%= new Date(file.createdAt).toLocaleString("en-US") %></span
+                  ><%= new Date(file.uploadTime).toLocaleString("en-US")
+                  %></span
                 >
               </div>
             </div>
@@ -104,7 +101,13 @@
         >
           <div class="form-group">
             <label for="file">Select File</label>
-            <input type="file" id="file" name="file" required accept="*/*" />
+            <input
+              type="file"
+              id="file"
+              name="file"
+              required
+              accept="image/*,application/pdf"
+            />
           </div>
           <div class="modal-actions">
             <button

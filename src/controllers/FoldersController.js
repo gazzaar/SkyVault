@@ -83,6 +83,9 @@ export const getFolders = async (req, res) => {
 
     const folders = await prisma.folder.findMany({
       where: { userID: req.user.id },
+      orderBy: {
+        updatedAt: 'desc',
+      },
     });
     res.render('home', {
       folders: folders,
@@ -179,9 +182,19 @@ export const getFolder = async (req, res) => {
       },
     });
 
+    const files = await prisma.file.findMany({
+      where: {
+        folderID: +req.params.id,
+      },
+      orderBy: {
+        uploadTime: 'desc',
+      },
+    });
+
     res.render('folder', {
       currentUser: req.user,
       folder: folder,
+      files: files,
     });
   } catch (err) {
     throw err;
@@ -192,6 +205,31 @@ export const uploadFile = [
   upload.single('file'),
   handleMulterError,
   async (req, res, next) => {
-    res.end();
+    if (!req.isAuthenticated()) {
+      return res.redirect('/login');
+    }
+
+    let { originalname, size } = req.file;
+    originalname = req.file.originalname.split('.')[0];
+
+    const addFile = prisma.file.create({
+      data: {
+        name: originalname,
+        size: size,
+        folderID: +req.params.id,
+      },
+    });
+    const updateFolder = prisma.folder.update({
+      where: {
+        id: +req.params.id,
+      },
+      data: {
+        updatedAt: new Date(),
+      },
+    });
+
+    await prisma.$transaction([addFile, updateFolder]);
+
+    res.redirect(`/folder/${req.params.id}`);
   },
 ];
