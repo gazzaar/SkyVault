@@ -10,6 +10,8 @@ import { PrismaClient } from './generated/prisma/client.js';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import indexRouter from './routes/IndexRouter.js';
 import signUpRouter from './routes/SignUpRouter.js';
+import loginRouter from './routes/LoginRouter.js';
+import homeRouter from './routes/Home.js';
 dotenv.config();
 
 const app = express();
@@ -44,8 +46,22 @@ app.use(
 
 app.use(passport.session());
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/sign-up', signUpRouter);
+app.use('/login', loginRouter);
+app.use('/home', homeRouter);
+
+app.get('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    res.redirect('/');
+  });
+});
 
 const PORT = process.env.PORT || 3000;
 
