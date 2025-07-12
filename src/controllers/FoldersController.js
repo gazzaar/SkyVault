@@ -11,7 +11,7 @@ export const createFolder = [
     try {
       const errors = validationResult(req);
       if (!req.isAuthenticated()) {
-        return res.redirect('login');
+        return res.redirect('/login');
       }
       if (!errors.isEmpty()) {
         return res.render('home', {
@@ -52,7 +52,7 @@ export const createFolder = [
 export const getFolders = async (req, res) => {
   try {
     if (!req.isAuthenticated()) {
-      return res.redirect('login');
+      return res.redirect('/login');
     }
 
     const folders = await prisma.folder.findMany({
@@ -70,7 +70,7 @@ export const getFolders = async (req, res) => {
 
 export const deleteFolder = async (req, res) => {
   if (!req.isAuthenticated()) {
-    return res.redirect('login');
+    return res.redirect('/login');
   }
   try {
     await prisma.folder.delete({
@@ -91,7 +91,7 @@ export const updateFolderName = [
     try {
       const errors = validationResult(req);
       if (!req.isAuthenticated()) {
-        return res.redirect('login');
+        return res.redirect('/login');
       }
       if (!errors.isEmpty()) {
         return res.render('home', {
