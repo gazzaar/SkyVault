@@ -1,0 +1,154 @@
+/* Header Styles */
+.header {
+  background: #282828;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo h1 {
+  color: #ebdbb2;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.welcome-text {
+  color: #d5c4a1;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-login {
+  background: transparent;
+  color: #83a598;
+  border-color: #83a598;
+}
+
+.btn-login:hover {
+  background: #83a598;
+  color: #282828;
+  transform: translateY(-2px);
+}
+
+.btn-signup {
+  background: #b8bb26;
+  color: #282828;
+}
+
+.btn-signup:hover {
+  background: #98971a;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(184, 187, 38, 0.3);
+}
+
+.btn-logout {
+  background: transparent;
+  color: #fb4934;
+  border-color: #fb4934;
+}
+
+.btn-logout:hover {
+  background: #fb4934;
+  color: #282828;
+  transform: translateY(-2px);
+}
+
+/* Additional button styles used in pages */
+.btn-primary {
+  background: #b8bb26;
+  color: #282828;
+  border: none;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+}
+
+.btn-primary:hover {
+  background: #98971a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(184, 187, 38, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #ebdbb2;
+  border-color: #ebdbb2;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+}
+
+.btn-secondary:hover {
+  background: #ebdbb2;
+  color: #282828;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #83a598;
+  border-color: #83a598;
+  font-size: 0.9rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.btn-outline:hover {
+  background: #83a598;
+  color: #282828;
+  transform: translateY(-2px);
+}
+
+/* Responsive Header */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 1rem;
+  }
+
+  .logo h1 {
+    font-size: 1.5rem;
+  }
+
+  .user-section {
+    gap: 1rem;
+  }
+
+  .welcome-text {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,18 @@
+<header class="header">
+  <div class="header-container">
+    <div class="logo">
+      <h1>SkyVault</h1>
+    </div>
+    <% if (locals.currentUser) { %>
+    <div class="user-section">
+      <span class="welcome-text">Welcome, <%= currentUser.username %></span>
+      <a href="/logout" class="btn btn-logout">Logout</a>
+    </div>
+    <% } else { %>
+    <nav class="nav-buttons">
+      <a href="/login" class="btn btn-login">Login</a>
+      <a href="/sign-up" class="btn btn-signup">Sign Up</a>
+    </nav>
+    <% } %>
+  </div>
+</header>
